@@ -49,7 +49,17 @@
             data: [4, 2, 7, 3, 4],
             backgroundColor: ["rgba(163, 163, 255, 0.4)"],
             borderColor: ["rgba(91, 91, 255, 1)"],
-            borderWidth: 1.5,
+            borderWidth: 2, // Grosor de la línea
+            lineTension: 0.5, // Controla la suavidad de la línea
+            pointBackgroundColor: "rgba(163, 163, 255, 0.5)", // Color de fondo de los puntos
+            pointBorderColor: "rgba(91, 91, 255, 1)", // Color del borde de los puntos
+            pointBorderWidth: 2, // Grosor del borde de los puntos
+            pointRadius: 8, // Tamaño de los puntos
+            pointHoverBackgroundColor: "rgba(rgba(91, 91, 255, 1)", // Color de fondo al pasar el ratón
+            pointHoverBorderColor: "rgba(rgba(91, 91, 255, 1)", // Color del borde al pasar el ratón
+            pointHoverBorderWidth: 2, // Grosor del borde al pasar el ratón
+            pointStyle: "rect", // Forma de los puntos (puede ser 'circle', 'rect', 'triangle', 'star', etc.)
+            fill: true, // Define si el área bajo la línea está rellena
           },
         ],
       };
@@ -65,34 +75,59 @@
               beginAtZero: true,
               min: 0,
               max: 10,
+              angleLines: {
+                // Personalizar las líneas de los ángulos (ejes)
+                display: true, // Mostrar las líneas de los ángulos
+                color: "rgba(0,0,200,0.3)", // Color de las líneas
+                lineWidth: 2, // Grosor de las líneas de los ángulos
+              },
+              grid: {
+                // Personalizar las líneas de la cuadrícula
+                display: true, // Mostrar las líneas de los ángulos
+                color: "rgba(0,0,180,0.3)", // Color de las líneas de la cuadrícula
+                lineWidth: 1.5, // Grosor de las líneas de la cuadrícula
+              },
               ticks: {
-                stepSize: 1, // Intervalo de marcas
+                stepSize: 2, // Intervalo de marcas
+                beginAtZero: true,
+                font: {
+                  size: 14, // Tamaño de la fuente de los ticks
+                  weight: "bold",
+                },
                 callback: (value, tick, values) => {
-                  console.log(value);
+                  console.log(values);
 
                   if (value == 10) {
                     return "ÓPTIMO";
                   }
 
-                  if (value == 1) {
+                  if (value == 2) {
                     return "PÉSIMO";
                   }
 
                   return "";
                 },
+
                 showLabelBackdrop: (context) => {
                   return false;
                 },
               },
+
               pointLabels: {
                 font: {
-                  size: 14, // Cambiar el tamaño de la fuente de los labels
+                  size: 18, // Cambiar el tamaño de la fuente de los labels
                   family: "Arial",
                   weight: "bold",
                 },
                 color: "#5B5BFF", // Cambiar el color de los labels
                 padding: 15, // Añadir espacio entre el label y la punta
               },
+            },
+          },
+
+          elements: {
+            line: {
+              borderDash: [2, 0.8], // Hacer las líneas discontinuas, el primer valor es el largo de la línea y el segundo es el espacio
             },
           },
 
