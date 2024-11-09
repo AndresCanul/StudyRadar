@@ -1,3 +1,113 @@
-<p1>
-    Hola
-</p1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Study Chart</title>
+    <style>
+      * {
+        background-color: rgba(255, 255, 255, 0);
+      }
+
+      .chartBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      canvas {
+        max-width: 60%;
+        max-height: 60%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chartBox">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"
+    ></script>
+    <script>
+      // setup
+      const data = {
+        labels: [
+          "ORGANIZACIÓN",
+          "ENFOQUE",
+          "COMPRENSIÓN",
+          "RETENCIÓN",
+          "HÁBITOS",
+        ],
+        datasets: [
+          {
+            data: [4, 2, 7, 3, 4],
+            backgroundColor: ["rgba(163, 163, 255, 0.4)"],
+            borderColor: ["rgba(91, 91, 255, 1)"],
+            borderWidth: 1.5,
+          },
+        ],
+      };
+
+      // config
+      const config = {
+        type: "radar",
+        data,
+        options: {
+          scales: {
+            r: {
+              // 'r' es el indentificador de escala radial
+              beginAtZero: true,
+              min: 0,
+              max: 10,
+              ticks: {
+                stepSize: 1, // Intervalo de marcas
+                callback: (value, tick, values) => {
+                  console.log(value);
+
+                  if (value == 10) {
+                    return "ÓPTIMO";
+                  }
+
+                  if (value == 1) {
+                    return "PÉSIMO";
+                  }
+
+                  return "";
+                },
+                showLabelBackdrop: (context) => {
+                  return false;
+                },
+              },
+              pointLabels: {
+                font: {
+                  size: 14, // Cambiar el tamaño de la fuente de los labels
+                  family: "Arial",
+                  weight: "bold",
+                },
+                color: "#5B5BFF", // Cambiar el color de los labels
+                padding: 15, // Añadir espacio entre el label y la punta
+              },
+            },
+          },
+
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      };
+
+      // render init block
+      const myChart = new Chart(document.getElementById("myChart"), config);
+
+      // Instantly assign Chart.js version
+      const chartVersion = document.getElementById("chartVersion");
+      chartVersion.innerText = Chart.version;
+    </script>
+  </body>
+</html>
